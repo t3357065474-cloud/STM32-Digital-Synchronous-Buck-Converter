@@ -36,32 +36,9 @@ This project implements a **synchronous Buck (step-down) DC-DC converter** with 
 - **UART telemetry 串口遥测** — VOFA+ JustFloat protocol @ 50 Hz for real-time waveform.
 
 ---
+<img width="1706" height="1279" alt="焊接图2" src="https://github.com/user-attachments/assets/2c3c7fa5-7f40-4acb-9077-1cc568501fc3" />
 
-## 🧩 System Architecture / 系统架构
 
-```
-                    ┌────────────────────────────────────────────┐
-  24V Input ──▶ Relay ──▶ Buck Stage ──▶ LC Filter ──▶ Vout ──▶ Load
-                            (Q1/Q2 + IR2104S)          │
-                                                      ▼
-                                          Voltage divider (10:1)
-                                                      │
-                    ┌────────────────────────────────────────────┐
-                    │               STM32F103C8T6                 │
-                    │  ┌────────┐   ┌─────────┐   ┌──────────┐   │
-   ADD/REDUCE ────▶ │  │ Button │   │  State  │   │   PID    │   │──▶ PWM 20kHz ──▶ IR2104
-   MODE / SET ────▶ │  │  Scan  │──▶│ Machine │──▶│ 1 kHz    │   │
-                    │  └────────┘   └─────────┘   └──────────┘   │
-                    │        ▲               ▲          │        │
-   OLED (I2C) ◀──── │  ┌─────────┐   ┌──────────┐  ┌─────────┐  │
-   UART (VOFA+) ◀── │  │ OLED    │   │ Measure  │◀─│  ADC+DMA│◀─│◀── Iout (0.01Ω×50)
-                    │  └─────────┘   └──────────┘  └─────────┘  │◀── Vout (10:1)
-                    └────────────────────────────────────────────┘
-```
-
-**Control chain / 控制链路**: ADC(DMA circular) → physical conversion → 1 kHz PID (TIM1 update IRQ ÷20) → PWM CCR → 20 kHz gate drive.
-
----
 
 ## ⚡ Hardware Design / 硬件设计
 
