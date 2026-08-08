@@ -53,3 +53,52 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# ─── STM32 / Keil MDK-ARM 编译产物 ──────────────────────
+# 注意：以下规则每行单独写，不要写"*.xxx # 注释"
+# 因为 git 只认行首的 # 注释，行内 # 会被当作 glob 的一部分
+# Keil 可执行镜像（类似 .elf）
+*.axf
+# 浏览信息文件
+*.crf
+# 链接/编译报告（HTML）
+*.htm
+# 依赖文件
+*.dep
+# 链接器参数
+*.lnp
+# 汇编/启动列表
+*.lst
+# Keil 调试用的 SVD 副本
+*.scvd
+# MDK 窗口布局（个人化）
+*.uvguix.*
+# 个人调试选项（含绝对路径）
+*.uvoptx
+# 调试配置
+*.dbgconf
+# 编译日志
+*.build_log.htm
+*.build_log.xml
+# MDK 默认输出目录
+**/Objects/
+**/Objects/**
+# MDK 列表输出目录
+**/Listings/
+**/Listings/**
+# Keil 包目录（自动生成）
+**/RTE/
+**/RTE/**
+# MDK 调试配置目录
+**/DebugConfig/
+**/DebugConfig/**
+
+# ─── IDE / 编辑器个人配置 ────────────────────────────
+# VSCode 用户级配置（不影响项目编译）
+**/.vscode/
+**/.vscode/**
+
+# ─── 系统垃圾 ────────────────────────────
+Thumbs.db
+.DS_Store
+desktop.ini
